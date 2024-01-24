@@ -1,0 +1,23 @@
+#! /bin/bash
+
+#PBS -P Training
+#PBS -N test_r
+#PBS -l select=1:ncpus=8:mem=12gb
+#PBS -l walltime=0:40:00
+#PBS -q defaultQ
+
+module load R/4.1.1
+
+#change directory into where qsub was called 
+
+cd $PBS_O_WORKDIR
+
+mkdir -p $HOME/R/library
+export R_LIBS_USER=$HOME/R/library
+
+#source R environment from extenal lockfile
+
+Rscript create_env.R
+
+
+

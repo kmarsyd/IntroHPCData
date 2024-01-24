@@ -1,0 +1,21 @@
+#!/bin/bash
+
+#Create indexes for reference sequence 
+
+#PBS -P Project
+#PBS -N Index
+#PBS -l select=1:ncpus=1:mem=4gb
+#PBS -l walltime=00:10:00
+#PBS -q small-express
+
+#Load modules
+module load bwa/0.7.17
+module load samtools/1.6
+
+io=/project/Project/YourName
+
+#BWA index: 
+bwa index -a bwtsw ${io}/canfam3_chr5.fasta
+
+#SAMtools index:
+samtools faidx ${io}/canfam3_chr5.fasta

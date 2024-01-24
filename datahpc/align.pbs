@@ -1,0 +1,31 @@
+#!/bin/bash
+
+#Align paired end reads to reference 
+
+#PBS -P Project
+#PBS -N Align
+#PBS -l select=1:ncpus=2:mem=8gb
+#PBS -l walltime=00:20:00
+#PBS -q small-express
+
+io=/project/Project/YourName
+final=${io}/Output
+mkdir ${final}
+
+#Load modules: 
+module load bwa/0.7.17
+module load samtools/1.6
+
+#Align reads to reference with BWA: 
+bwa mem -M -t 2 -R '@RG\tID:134\tPL:illumina\tPU:CONNEACXX\tSM:MS_134' \
+	${io}/canfam3_chr5.fasta ${io}/134_R1.fastq.gz  \
+	${io}/134_R2.fastq.gz | samtools view -bSho ${io}/134.bam -
+
+#Sort by genomic coordinate with SAMtools:
+samtools sort ${io}/134.bam -o ${io}/134_sorted.bam
+
+#Index alignment with SAMtools:
+samtools index ${io}/134_sorted.bam
+
+#Copy the final output files to 'Output' directory:
+cp ${io}/134_sorted* $final

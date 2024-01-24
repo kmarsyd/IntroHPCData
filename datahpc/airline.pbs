@@ -1,0 +1,27 @@
+#! /bin/bash
+
+#PBS -P Training
+#PBS -N test_matlab
+#PBS -l select=1:ncpus=4:mem=4gb
+#PBS -l walltime=0:10:00
+#PBS -q defaultQ
+
+
+module load matlab/R2018a
+
+
+#change directory into where qsub was called 
+
+cd $PBS_O_WORKDIR
+
+
+#call matlab script
+
+matlab -nosplash -nodisplay -r 'airline_analysis; exit'
+
+
+
+# More background info on matlab and linux
+#https://au.mathworks.com/help/matlab/ref/matlablinux.html
+
+
