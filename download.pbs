@@ -1,0 +1,19 @@
+#!/bin/bash
+
+#Download raw data from web source
+
+#PBS -P Training
+#PBS -N getFastq
+#PBS -l select=1:ncpus=1:mem=2GB
+#PBS -l walltime=00:20:00
+#PBS -q dtq
+
+cd $PBS_O_WORKDIR
+
+#Download data
+wget http://hp580.angis.org.au/~cali/USCF_MS134_R1.fastq.gz
+wget http://hp580.angis.org.au/~cali/USCF_MS134_R2.fastq.gz
+
+
+
+
